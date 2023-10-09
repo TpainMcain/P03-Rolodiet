@@ -1,6 +1,4 @@
 # Good Eats
-A MERN-based web-application to showcase recipes.
-The application is live [here](https://good-eats-b2abe2613d0c.herokuapp.com/).
 ![MERN](https://img.shields.io/badge/MERN-Full%20Stack-blue?style=for-the-badge)
 
 ## Table of Contents
@@ -12,7 +10,7 @@ The application is live [here](https://good-eats-b2abe2613d0c.herokuapp.com/).
   
 ## Description
 
-Good Eats is a comprehensive, full-stack web application built with the MERN (MongoDB, Express.js, React.js, and Node.js) tech stack. It provides an intuitive platform for users to discover and save their favorite recipes.
+Personal continuatipon of https://github.com/LaurenWollaston/Rolodiet. Good Eats is a comprehensive, full-stack web application built with the MERN (MongoDB, Express.js, React.js, and Node.js) tech stack. It provides an intuitive platform for users to discover and save their favorite recipes.
 
 ### Technology Stack
 
