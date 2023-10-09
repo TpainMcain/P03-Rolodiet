@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
-const Recipe = require('./models/Recipe'); // Adjust the path if needed
+const Recipe = require('./models/Recipe'); // Ensure the path is correct
 
-// Replace the following with the path to your JSON file
-const jsonFilePath = './recipes.json';
-const Epithymia = './seeds/Epithymia.json';
-const Errinnys = './seeds/Errinnys.json';
-const Kakia = './seeds/Kakia.json';
-const Phthonos = './seeds/Phthonos.json';
-const Zelos = './seeds/Zelos.json';
+// Paths to JSON seed data files
+const jsonFiles = [
+    './recipes.json',
+    './seeds/Epithymia.json',
+    './seeds/Errinnys.json',
+    './seeds/Kakia.json',
+    './seeds/Phthonos.json',
+    './seeds/Zelos.json',
+];
 
-// Function to insert data into the database
+// Function to insert a single data item into the database
 const insertData = async (data) => {
   // Check if the 'description' field is missing or empty
   if (!data.description || data.description.trim() === '') {
@@ -24,7 +26,7 @@ const insertData = async (data) => {
   }
 };
 
-// Function to populate the database with data from the JSON file
+// Function to populate the database from JSON files
 const populateDatabase = async () => {
   try {
     // Connect to MongoDB
@@ -33,55 +35,29 @@ const populateDatabase = async () => {
       useUnifiedTopology: true,
     });
 
-    // Read the JSON files with error handling
-    const jsonData = require(jsonFilePath);
-    const EpithymiaData = require(Epithymia);
-    const ErrinnysData = require(Errinnys);
-    const KakiaData = require(Kakia);
-    const PhthonosData = require(Phthonos);
-    const ZelosData = require(Zelos);
-
-    // Check if the database is already populated
+    // Check if the database already contains data
     const recipeCount = await Recipe.countDocuments();
     if (recipeCount > 0) {
       console.log('Database is already populated. Exiting...');
-      mongoose.connection.close();
       return;
     }
 
-    // Insert data into the database
-    for (const data of jsonData) {
-      await insertData(data);
-    }
-
-    for (const data of EpithymiaData) {
-      await insertData(data);
-    }
-
-    for (const data of ErrinnysData) {
-      await insertData(data);
-    }
-
-    for (const data of KakiaData) {
-      await insertData(data);
-    }
-
-    for (const data of PhthonosData) {
-      await insertData(data);
-    }
-
-    for (const data of ZelosData) {
-      await insertData(data);
+    // Loop through each JSON file and insert its data
+    for (const filePath of jsonFiles) {
+      const jsonData = require(filePath);
+      for (const data of jsonData) {
+        await insertData(data);
+      }
     }
 
     console.log('Database populated successfully!');
   } catch (error) {
     console.error('Error populating the database:', error);
   } finally {
-    // Close the MongoDB connection
+    // Ensure the MongoDB connection is closed
     mongoose.connection.close();
   }
 };
 
-// Call the populateDatabase function to start populating the database
+// Invoke the main function
 populateDatabase();
