@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
 import searchIcon from "../images/search.svg";
 
+// Define the icon size for the search button
 const size = "10px";
 
+// GraphQL query for fetching autocomplete suggestions
 const AUTOCOMPLETE_RECIPES_QUERY = gql`
 query Autocomplete($searchTerm: String) {
   autocompleteRecipes(searchTerm: $searchTerm) {
@@ -15,30 +17,35 @@ query Autocomplete($searchTerm: String) {
 
 const SearchComponent = ({ onSearch, onAutocompleteItemClick  }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  
+  // Define the lazy query for fetching autocomplete suggestions
   const [getAutocompleteRecipes, { loading, data }] = useLazyQuery(
     AUTOCOMPLETE_RECIPES_QUERY
   );
 
+  // Handle the input change and fetch autocomplete suggestions
   const handleChange = (event) => {
     const newSearchTerm = event.target.value;
     setSearchTerm(newSearchTerm);
-    // Fetch autocomplete suggestions as the user types
     getAutocompleteRecipes({
       variables: { searchTerm: newSearchTerm },
     });
   };
 
+  // Handle the form submission
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
     onSearch(searchTerm);
   };
 
+  // Handle the click on an autocomplete suggestion
   const handleAutocompleteItemClick = (title) => {
     onAutocompleteItemClick(title);
   };
 
   return (
     <div>
+      {/* Search form */}
       <form onSubmit={handleSubmit} style={{ display: "inline-flex", width: "90%" }}>
         <input
           type="text"
@@ -54,6 +61,7 @@ const SearchComponent = ({ onSearch, onAutocompleteItemClick  }) => {
             color: "white",
           }}
         />
+        {/* Search button with an icon */}
         <button
           type="submit"
           style={{
@@ -72,7 +80,8 @@ const SearchComponent = ({ onSearch, onAutocompleteItemClick  }) => {
           <img src={searchIcon} alt="search button" width={size} height={size} />
         </button>
       </form>
-      {/* Display autocomplete suggestions */}
+      
+      {/* Autocomplete suggestions */}
       {loading && <p>Loading...</p>}
       {data && data.autocompleteRecipes && data.autocompleteRecipes.length > 0 && searchTerm !== "" && (
         <div id="autocomplete" style={{textDecoration:'none',listStyleType:'none',justifyContent:'center',display:'flex',}}>

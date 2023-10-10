@@ -1,6 +1,7 @@
 import React from 'react';
 import './Features.css';
 
+// List of features and tech-stack descriptions
 const featuresList = [
   'Intuitive UI: Our user-friendly interface makes it easy to navigate and discover new recipes.',
   'Recipe Discovery: Our advanced search capabilities allow you to discover recipes from around the world.',
@@ -12,6 +13,9 @@ const featuresList = [
   'Node.js: An open-source, cross-platform, JavaScript runtime environment that executes JavaScript code outside of a web browser.'
 ];
 
+/**
+ * Features component: Describes the features and tech-stack of Good Eats.
+ */
 const Features = () => {
   return (
     <div className="features">
@@ -24,6 +28,13 @@ const Features = () => {
   );
 };
 
+/**
+ * Header component: Displays the main title and subtitle.
+ * 
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.title - The main title.
+ * @param {string} props.subtitle - The subtitle.
+ */
 const Header = ({ title, subtitle }) => (
   <>
     <h1>{title}</h1>
@@ -31,10 +42,22 @@ const Header = ({ title, subtitle }) => (
   </>
 );
 
+/**
+ * Description component: Displays the main description text.
+ * 
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.text - The description text.
+ */
 const Description = ({ text }) => (
   <p>{text}</p>
 );
 
+/**
+ * FeaturesList component: Lists all the features and tech descriptions.
+ * 
+ * @param {Object} props - The properties passed to the component.
+ * @param {string[]} props.features - The list of features/descriptions.
+ */
 const FeaturesList = ({ features }) => (
   <ul>
     {features.map((feature, index) => (

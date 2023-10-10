@@ -1,8 +1,12 @@
 import React from "react";
 
 const RecipeCard = ({ card, onClick }) => {
+  // Truncate the title if it's longer than 35 characters
   const truncatedName = card.title.length > 35 ? `${card.title.slice(0, 35)}...` : card.title;
+  
+  // Truncate the description if it's longer than 145 characters
   const truncatedText = card.description.length > 145 ? `${card.description.slice(0, 145)}...` : card.description;
+  
   return (
     <div
       style={{
@@ -20,6 +24,7 @@ const RecipeCard = ({ card, onClick }) => {
       <div
         style={{ display: "flex", flexDirection: "column", marginTop: "-20px" }}
       >
+        {/* Header section of the recipe card */}
         <div
           style={{
             display: "flex",
@@ -33,6 +38,7 @@ const RecipeCard = ({ card, onClick }) => {
           <div
             style={{ display: "flex", flexDirection: "column", width: "100%" }}
           >
+            {/* Recipe title */}
             <h2
               style={{
                 color: "white",
@@ -49,6 +55,7 @@ const RecipeCard = ({ card, onClick }) => {
             >
               {truncatedName}
             </h2>
+            {/* Author information */}
             <p
               class="recipeierInfo"
               style={{
@@ -66,6 +73,8 @@ const RecipeCard = ({ card, onClick }) => {
             </p>
           </div>
         </div>
+        
+        {/* Ingredients */}
         <div style={{ display: "flex", flexDirection: "row" }}>
           <p
             style={{
@@ -81,7 +90,11 @@ const RecipeCard = ({ card, onClick }) => {
             {card.ingredients} -
           </p>
         </div>
+        
+        {/* Decorative horizontal line */}
         <hr style={{width:"85%",borderRadius:"25px",border:'2px dotted white',marginTop:'-5px'}}></hr>
+        
+        {/* Recipe description */}
         <div style={{display:'flex',flexDirection:'row',margin:"15px",marginTop:'0px',color:"white"}}>{truncatedText}</div>
       </div>
     </div>
